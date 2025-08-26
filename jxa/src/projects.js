@@ -115,6 +115,16 @@ export class ProjectOperations {
       project.dueDate = params.due_date ? parseLocalDate(params.due_date) : null;
     }
     
+    // Update area assignment
+    if (params.area_id) {
+      try {
+        const area = things.areas.byId(params.area_id);
+        project.area = area;
+      } catch (e) {
+        // Area not found
+      }
+    }
+    
     return mapProject(project);
   }
   

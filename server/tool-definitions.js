@@ -398,6 +398,10 @@ export const TOOL_DEFINITIONS = [
         canceled: {
           type: "boolean",
           description: "Mark as canceled"
+        },
+        area_id: {
+          type: "string",
+          description: "Optional area ID to move the project to"
         }
       },
       required: ["id"]
