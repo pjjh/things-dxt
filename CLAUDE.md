@@ -196,6 +196,11 @@ function run(argv) {
   };
   ```
 - ⚠️ **Critical**: The Anytime and Upcoming list IDs don't match their display names
+- ⚠️ **Write Restrictions**: Built-in list write permissions vary by item type:
+  - **Todos**: Can only be assigned to Today and Inbox lists
+  - **Projects**: Can only be assigned to Today list (not Inbox)
+  - All other built-in lists (Anytime, Upcoming, Someday, Logbook, Trash) are read-only for direct assignment
+  - Use activation dates and project membership instead of direct list assignment for read-only lists
 - Test new installations by running: `things.lists().map(l => ({id: l.id(), name: l.name()}))`
 
 **Safe Utilities** (in `jxa/src/utils.js`):

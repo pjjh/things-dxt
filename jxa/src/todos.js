@@ -2,7 +2,7 @@
  * Todo operations for Things 3
  */
 
-import { mapTodo, formatTags, scheduleItem, parseLocalDate } from './utils.js';
+import { mapTodo, formatTags, scheduleItem, parseLocalDate, LIST_IDS } from './utils.js';
 
 export class TodoOperations {
   
@@ -40,11 +40,16 @@ export class TodoOperations {
     
     // Add to list/project
     if (params.list_id) {
-      try {
-        const list = things.lists.byId(params.list_id);
-        list.toDos.push(todo);
-      } catch (e) {
-        // List not found, todo stays in inbox
+      // Only allow assignment to writable lists (Today and Inbox)
+      const WRITABLE_LISTS = [LIST_IDS.TODAY, LIST_IDS.INBOX];
+      
+      if (WRITABLE_LISTS.includes(params.list_id)) {
+        try {
+          const list = things.lists.byId(params.list_id);
+          list.toDos.push(todo);
+        } catch (e) {
+          // List not found, todo stays in inbox
+        }
       }
     } else if (params.list_title) {
       let targetList;
