@@ -169,6 +169,29 @@ export class TodoOperations {
       todo.dueDate = params.due_date ? parseLocalDate(params.due_date) : null;
     }
     
+    // Move to list/project
+    if (params.list_id) {
+      // Only allow assignment to writable lists (Today and Inbox)
+      const WRITABLE_LISTS = [LIST_IDS.TODAY, LIST_IDS.INBOX];
+      
+      if (WRITABLE_LISTS.includes(params.list_id)) {
+        try {
+          const list = things.lists.byId(params.list_id);
+          things.move(todo, { to: list });
+        } catch (e) {
+          // List not found or move failed
+        }
+      } else {
+        // Try to assign to project by ID
+        try {
+          const project = things.projects.byId(params.list_id);
+          todo.project = project;
+        } catch (e) {
+          // Project not found or assignment failed
+        }
+      }
+    }
+    
     
     return mapTodo(todo);
   }
