@@ -169,7 +169,7 @@ export class TodoOperations {
       todo.dueDate = params.due_date ? parseLocalDate(params.due_date) : null;
     }
     
-    // Move to list/project
+    // Move to list/project/area
     if (params.list_id) {
       // Only allow assignment to writable lists (Today and Inbox)
       const WRITABLE_LISTS = [LIST_IDS.TODAY, LIST_IDS.INBOX];
@@ -181,14 +181,24 @@ export class TodoOperations {
         } catch (e) {
           // List not found or move failed
         }
-      } else {
-        // Try to assign to project by ID
-        try {
-          const project = things.projects.byId(params.list_id);
-          todo.project = project;
-        } catch (e) {
-          // Project not found or assignment failed
-        }
+      }
+    }
+    
+    if (params.project_id) {
+      try {
+        const project = things.projects.byId(params.project_id);
+        todo.project = project;
+      } catch (e) {
+        // Project not found
+      }
+    }
+    
+    if (params.area_id) {
+      try {
+        const area = things.areas.byId(params.area_id);
+        todo.area = area;
+      } catch (e) {
+        // Area not found
       }
     }
     

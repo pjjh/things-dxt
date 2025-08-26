@@ -335,6 +335,18 @@ export const TOOL_DEFINITIONS = [
         canceled: {
           type: "boolean",
           description: "Mark as canceled"
+        },
+        list_id: {
+          type: "string",
+          description: "Optional built-in list ID to move the to-do to (Today or Inbox only)"
+        },
+        project_id: {
+          type: "string",
+          description: "Optional project ID to move the to-do to"
+        },
+        area_id: {
+          type: "string",
+          description: "Optional area ID to move the to-do to"
         }
       },
       required: ["id"]
