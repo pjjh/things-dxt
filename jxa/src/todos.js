@@ -50,6 +50,14 @@ export class TodoOperations {
         } catch (e) {
           // List not found, todo stays in inbox
         }
+      } else {
+        // Try to assign to project by ID
+        try {
+          const project = things.projects.byId(params.list_id);
+          project.toDos.push(todo);
+        } catch (e) {
+          // Project not found, todo stays in inbox
+        }
       }
     } else if (params.list_title) {
       let targetList;
@@ -86,7 +94,7 @@ export class TodoOperations {
     // Add to heading within project
     if (params.heading && params.list_id) {
       try {
-        const project = things.projects.byId(params.list_id);
+        const project = things.projects.byId(params.list_id); // using list_id as project_id
         const todos = project.toDos();
         const headings = todos.filter(t => t.name() === params.heading);
         if (headings.length > 0) {
