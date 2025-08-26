@@ -113,9 +113,10 @@ export class TodoOperations {
     }
     
     // Add to heading within project
-    if (params.heading && params.list_id) {
+    // TODO: Support heading placement with list_title (project name) in addition to project_id
+    if (params.heading && params.project_id) {
       try {
-        const project = things.projects.byId(params.list_id); // using list_id as project_id
+        const project = things.projects.byId(params.project_id);
         const todos = project.toDos();
         const headings = todos.filter(t => t.name() === params.heading);
         if (headings.length > 0) {
