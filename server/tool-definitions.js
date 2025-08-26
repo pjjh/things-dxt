@@ -39,7 +39,15 @@ export const TOOL_DEFINITIONS = [
         },
         list_id: {
           type: "string",
-          description: "Optional list ID to add the to-do to"
+          description: "Optional built-in list ID to add the to-do to (Today or Inbox only)"
+        },
+        project_id: {
+          type: "string",
+          description: "Optional project ID to add the to-do to"
+        },
+        area_id: {
+          type: "string",
+          description: "Optional area ID to add the to-do to"
         },
         list_title: {
           type: "string",
